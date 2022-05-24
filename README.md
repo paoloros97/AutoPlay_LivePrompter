@@ -45,7 +45,7 @@ MidiInChannel=omni
 MidiInKeyPausePlay=CC 7
 ```
 
-### Lunch App
+## Lunch App
 Double click on the Python file "AutoPlayer.py"
 <p align="center"><img src="images/AutoPlayScreenShot.PNG" alt="avvia" width="550"></p>
 
