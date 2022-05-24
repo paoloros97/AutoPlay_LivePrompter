@@ -12,12 +12,13 @@
 
 * <a href="https://visualstudio.microsoft.com/downloads/?q=build+tools">Download</a> and install Visual Studio.
 Install then the Visual Studio Build Tools.
+(This is necessary to install python-rtmidi)
 
  <p align="center"><img src="images/VisualStudio.PNG" alt="avvia" width="550"></p>
 
 ### Install libreries
 
-Copy and paste the following commands:
+Copy and paste the following commands into the Command Prompt:
 
 ```
 pip install mido
