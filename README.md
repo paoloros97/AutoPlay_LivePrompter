@@ -34,7 +34,16 @@ pip install mido
 ```
 pip install python-rtmidi
 ```
+### Update the LivePrompter.ini
 
+```
+; MIDI in
+MidiInPC=yes
+MidiInKeys=yes
+MidiInPort=loopMIDI
+MidiInChannel=omni
+MidiInKeyPausePlay=CC 7
+```
 
 ### Lunch App
 Double click on the Python file "AutoPlayer.py"
