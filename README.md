@@ -16,6 +16,14 @@ Install then the Visual Studio Build Tools.
 
  <p align="center"><img src="images/VisualStudio.PNG" alt="avvia" width="550"></p>
 
+### Install loopMIDI
+
+* <a href="https://www.tobias-erichsen.de/software/loopmidi.html">Download</a> and install loopMIDI.
+This creates an internal loop of MIDI commands.
+
+<p align="center"><img src="images/loopMIDI.PNG" alt="avvia" width="550"></p>
+
+
 ### Install libreries
 
 Copy and paste the following commands into the Command Prompt:
