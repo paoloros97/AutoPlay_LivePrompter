@@ -27,15 +27,20 @@ try:
     print('Waiting MIDI message from Cymatic...')
     print()
     msg = inport.receive() # Leggo il messagio dal Cymatic
-    print('Forward:')
-    print(msg) # Visualizzo il messaggio ricevuto
-    outport.send(msg) # Inoltro il messaggio a Live Prompter
 
-    # Play MIDI command
-    print('Play command:')
-    play = mido.Message('control_change', control=7, value=10) #Play
-    print(play)
-    outport.send(play)
+    if msg.type == 'program_change':
+        print('Forward:')
+        print(msg) # Visualizzo il messaggio ricevuto
+        outport.send(msg) # Inoltro il messaggio a Live Prompter
+
+        # Play MIDI command
+        print('Play command:')
+        play = mido.Message('control_change', control=7, value=10) #Play
+        print(play)
+        outport.send(play)
+
+    else:
+        print('MIDI message Discarded: not a control_change!')
 
     print() #New line
 
@@ -46,6 +51,6 @@ try:
 except:
     print('Unable to open MIDI port(s).')
     print('Is the loopMIDI program running?')
-    print('Is the MIDI usb adapter connected?')
+    print('Is the MIDI-usb adapter connected?')
     print('Window closing in 10 seconds...')
     time.sleep(10)
