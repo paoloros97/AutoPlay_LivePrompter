@@ -9,7 +9,8 @@
 import mido
 
 outport = mido.open_output('emulatore 2')
-songCymatic = mido.Message('program_change', program=14) #Change Program here
+songCymatic = mido.Message('program_change', program=19) #Change Program here
+toDiscard = mido.Message('note_on', note=60)
 
 print(songCymatic)
 outport.send(songCymatic)
