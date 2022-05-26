@@ -50,10 +50,10 @@ try:
     os.execl(sys.executable, 'python', __file__, *sys.argv[1:]) # Restart program
 
 except:
-    print('Unable to open MIDI port(s).')
-    print()
-    print('Is the \"loopMIDI\" program running?')
-    print('Is the MIDI-usb adapter connected?')
+    print('ERROR: Unable to open MIDI port(s).')
+    print('Solutions:')
+    print('   Is the \"loopMIDI\" program running?')
+    print('   Is the MIDI-usb adapter connected?')
     print()
     print('Window closing in 10 seconds...')
     time.sleep(10)
