@@ -30,7 +30,7 @@ try:
 
     play = mido.Message('control_change', control=7, value=10) # Compose MIDI Play command
 
-    print('>>> Waiting MIDI message from Cymatic... ( Obay only to program_change on Channel', inputChannel,')')
+    print('>>> Waiting MIDI message from Cymatic... ( Obey only to program_change on Channel', inputChannel,')')
 
     while True:
         msg = inport.receive() # Read MIDI message received from Cymatic
