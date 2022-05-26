@@ -23,39 +23,35 @@ outputMIDIport='loopMIDI 1' #To LivePrompter
 inputMIDIport='emulatore 1' #From Cymatic
 inputChannel = 0
 
-#try:
-outport = mido.open_output(outputMIDIport, autoreset=True) # Open output MIDI port
-inport = mido.open_input(inputMIDIport, autoreset=True) # Open input MIDI port
+try:
+    outport = mido.open_output(outputMIDIport, autoreset=True) # Open output MIDI port
+    inport = mido.open_input(inputMIDIport, autoreset=True) # Open input MIDI port
 
-# Connected Alert to Live Prompter
-alert = "Connesso a MIDI-USB (Porta 1) via AutoPlayer" # Alert to send
-sysex = mido.Message('sysex', data=[125, 77, 65, 1, 70, 71] + [ord(x) for x in list(alert)] + [33]) # Compose MIDI alert
-outport.send(sysex)
+    # Connected Alert to Live Prompter
+    alert = "Connesso a MIDI-USB (Porta 1) via AutoPlayer" # Alert to send
+    sysex = mido.Message('sysex', data=[125, 77, 65, 1, 70, 71] + [ord(x) for x in list(alert)] + [33]) # Compose MIDI alert
+    outport.send(sysex)
 
-play = mido.Message('control_change', control=7, value=10) # Compose MIDI Play command
+    play = mido.Message('control_change', control=7, value=10) # Compose MIDI Play command
 
-print('>>> Waiting MIDI message from Cymatic... ( Only program_change on Channel', inputChannel,')')
+    print('>>> Waiting MIDI message from Cymatic... ( Only program_change on Channel', inputChannel,')')
 
-while True:
-    msg = inport.receive() # Read MIDI message received from Cymatic
-    
-    epoch = time.time() # Get time in Unix epoch
-    local_time = time.ctime(epoch) # Convert time to standard format
-
-    if msg.type == 'program_change' and msg.channel == inputChannel: # Accept only program_change
-        outport.send(msg) # Forward message to Live Prompter
-        time.sleep(0.1) # LivePrompter needs time to load the song
-        outport.send(play) # Send Play message to Live Prompter
-
-        print('Forward: ', msg, " with Play command @", local_time)
-        #print(local_time) # Print received message
+    while True:
+        msg = inport.receive() # Read MIDI message received from Cymatic
         
-    else:
-        print('DISCARDED:', msg, " @", local_time)
+        epoch = time.time() # Get time in Unix epoch
+        local_time = time.ctime(epoch) # Convert time to standard format
 
-    #time.sleep(0.5)
-    #print()
-"""
+        if msg.type == 'program_change' and msg.channel == inputChannel: # Accept only program_change
+            outport.send(msg) # Forward message to Live Prompter
+            time.sleep(0.1) # LivePrompter needs time to load the song
+            outport.send(play) # Send Play message to Live Prompter
+
+            print('Forward: ', msg, " with Play command @", local_time)
+                        
+        else:
+            print('DISCARDED:', msg, " @", local_time)
+
 except:
     print('ERROR: Unable to open MIDI port(s).')
     print('Solutions:')
@@ -64,4 +60,3 @@ except:
     print()
     print('Window closing in 10 seconds...')
     time.sleep(10)
-"""
