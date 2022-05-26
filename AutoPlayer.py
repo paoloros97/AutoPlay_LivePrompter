@@ -50,7 +50,7 @@ try:
             print('Forward:\t', msg, " with Play command \t@", local_time)
                         
         else:
-            print('DISCARDED:\t', msg, " \t\t@", local_time)
+            print('DISCARDED:\t', msg, " \t\t\t@", local_time)
 
 except:
     print('ERROR: Unable to open MIDI port(s).')
