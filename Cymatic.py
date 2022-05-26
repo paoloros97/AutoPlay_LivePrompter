@@ -38,7 +38,10 @@ while True:
     print(send)
     outport.send(send)
     input("Press Enter to continue.")
-    prgChange1 = mido.Message('program_change', program=4, channel=1) #Change Program here
+    prgChange1 = mido.Message('control_change', control=4, channel=1) #Change Program here
+    print(prgChange1)
+    outport.send(prgChange1)
+    prgChange1 = mido.Message('program_change', program=4, channel=0) #Change Program here
     print(prgChange1)
     outport.send(prgChange1)
     """

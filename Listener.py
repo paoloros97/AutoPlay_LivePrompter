@@ -19,6 +19,12 @@ try:
         print('Received:', end ="\t")
         print(msg, end = "\t @") # Print received message
         print(local_time)
+"""
+        if msg.type == 'program_change':
+            print("program #", msg.program)
+        elif msg.type == 'control_change':
+            print("control #", msg.control)
+"""
         #print() # New line
 
 except:
