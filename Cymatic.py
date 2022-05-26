@@ -41,17 +41,8 @@ while True:
     prgChange1 = mido.Message('control_change', control=4, channel=1) #Change Program here
     print(prgChange1)
     outport.send(prgChange1)
+    input("Press Enter to continue.")
     prgChange1 = mido.Message('program_change', program=4, channel=0) #Change Program here
     print(prgChange1)
     outport.send(prgChange1)
-    """
-    input("Press Enter to continue.")
-    send = sysex
-    print(send)
-    outport.send(send)
-    """
-#Test
-#hex_array = [0x7D, 0x4D, 0x41, 0x01, 0x53, 0x52, 0x48, 0x65, 0x6C, 0x6C, 0x6F, 0x20, 0x57, 0x6F, 0x72, 0x6C, 0x64, 0x21]
-#dec_array = [125, 77, 65, 1, 83, 82, 72, 101, 108, 108, 111, 32, 87, 111, 114, 108, 100, 33]
-#dec_array = [int(x) for x in hex_array]
 
