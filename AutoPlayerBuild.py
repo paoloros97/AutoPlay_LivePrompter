@@ -1,6 +1,7 @@
 #
 # @Author: Paolo Rosettani
 # @Date: 24/05/2021 (DD/MM/YYY)
+#
 # @Description:
 # This code receive any kind of message received from an external MIDI device (like a Cymatic)
 # Forward the received MIDI message to a loopMIDI channel with an addition MIDI command that trigger
@@ -12,7 +13,7 @@
 #
 
 import mido
-import mido.backends.rtmidi
+import mido.backends.rtmidi # Necessary for build the exe version
 import os
 import time
 import sys
@@ -20,38 +21,39 @@ import sys
 outputMIDI='loopMIDI 1' #To LivePrompter
 inputMIDI='emulatore 1' #From Cymatic
 try:
-    outport = mido.open_output(outputMIDI, autoreset=True) #Oper output MIDI port
+    outport = mido.open_output(outputMIDI, autoreset=True) #Open output MIDI port
     inport = mido.open_input(inputMIDI, autoreset=True) #Open input MIDI port
-
-
 
     print('Waiting MIDI message from Cymatic...')
     print()
-    msg = inport.receive() # Leggo il messagio dal Cymatic
 
-    if msg.type == 'program_change':
+    msg = inport.receive() # Read MIDI message received from Cymatic
+
+    if msg.type == 'program_change': # Accept only program_change
+        
         print('Forward:')
-        print(msg) # Visualizzo il messaggio ricevuto
-        outport.send(msg) # Inoltro il messaggio a Live Prompter
+        print(msg) # Print received message
+        outport.send(msg) # Forward message to Live Prompter
 
-        # Play MIDI command
         print('Play command:')
-        play = mido.Message('control_change', control=7, value=10) #Play
-        print(play)
-        outport.send(play)
+        play = mido.Message('control_change', control=7, value=10) # MIDI Play command
+        print(play) # Print Play message
+        outport.send(play) # Send Play message to Live Prompter
 
     else:
+
         print('MIDI message Discarded: not a control_change!')
 
-    print() #New line
+    print() # New line
 
-    time.sleep(1)
-    
-    os.execl(sys.executable, 'python', __file__, *sys.argv[1:]) #Restart program
+    time.sleep(1) # Wait 1 sec before restart
+    os.execl(sys.executable, 'python', __file__, *sys.argv[1:]) # Restart program
 
 except:
     print('Unable to open MIDI port(s).')
-    print('Is the loopMIDI program running?')
+    print()
+    print('Is the \"loopMIDI\" program running?')
     print('Is the MIDI-usb adapter connected?')
+    print()
     print('Window closing in 10 seconds...')
     time.sleep(10)
