@@ -47,10 +47,10 @@ try:
             time.sleep(0.1) # LivePrompter needs time to load the song
             outport.send(play) # Send Play message to Live Prompter
 
-            print('Forward: ', msg, " with Play command @", local_time)
+            print('Forward:\t', msg, " with Play command \t@", local_time)
                         
         else:
-            print('DISCARDED:', msg, " @", local_time)
+            print('DISCARDED:\t', msg, " \t\t@", local_time)
 
 except:
     print('ERROR: Unable to open MIDI port(s).')
