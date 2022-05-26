@@ -7,11 +7,7 @@
 # Forward the received MIDI message to a loopMIDI channel with an addition MIDI command that trigger
 # the play button on "LivePrompter".
 #
-# In this way it keep simple the MIDI programing for the Cymatic, it just trigger a Program Change
-# matched with a ceratin song (in LivePrompter), and ti peace of code include the play command (send by
-# a MIDI Control Change).
-#
-#For build .exe Run: pyinstaller --onefile .\AutoPlayerBuild.py
+#For build .exe Run: pyinstaller --onefile .\AutoPlayer.py
 
 # Version 2
 
