@@ -7,7 +7,8 @@
 # Forward the received MIDI message to a loopMIDI channel with an addition MIDI command that trigger
 # the play button on "LivePrompter".
 #
-#For build .exe Run: pyinstaller --onefile .\AutoPlayer.py
+#For build .exe Run: pyinstaller --onefile --icon logo.ico .\AutoPlayer.py
+#--onefile --windowed --icon=app.ico app.py
 
 #Version 2
 
