@@ -46,7 +46,7 @@ try:
             outport.send(play) # Send Play message to Live Prompter
             print(msg, ' + Play cmd \t@', local_time)
         else:
-            print(msg, '\t\t\t@', local_time) # Other messages (not program_change)
+            print(msg, '\t\t@', local_time) # Other messages (not program_change)
 
 except:
     print('ERROR: Unable to open MIDI port(s)!')
