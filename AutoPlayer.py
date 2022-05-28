@@ -24,7 +24,7 @@ inputChannel = 0
 try:
     outport = mido.open_output(outputMIDIport, autoreset=True) # Open output MIDI port
     inport = mido.open_input(inputMIDIport, autoreset=True) # Open input MIDI port
-    print('\x1b[6;30;42m' + 'Connected' + '\x1b[0m', 'to physical MIDI in-port:', inport.name, 'and virtual MIDI out-port:', outport.name + '.')
+    print('Connected to physical MIDI in-port:', inport.name, 'and virtual MIDI out-port:', outport.name + '.')
 
     alertMsg = "Connesso a MIDI-USB (Porta 1) via AutoPlayer" # Alert to send
     sysex = mido.Message('sysex', data=[125, 77, 65, 1, 70, 71] + [ord(x) for x in list(alertMsg)] + [33]) # Compose MIDI alert
@@ -32,10 +32,10 @@ try:
 
     play = mido.Message('control_change', control=7, value=10) # Compose MIDI Play command
 
-    print('\x1b[3;36;40m' + 'Remember: here numbers goes from 0 to 15 instead of 1 to 16.' + '\x1b[0m') #32
-    print('\x1b[1;35;40m' + 'The Play command is:'+ '\x1b[0m', play)
+    print('Remember: here numbers goes from 0 to 15 instead of 1 to 16.')
+    print('The Play command is:', play)
     print()
-    print('>>> Waiting MIDI message from Cymatic... (Obey only to program_change on Channel '+ str(inputChannel) + ')')
+    print('>>> Waiting MIDI message from Cymatic... (Obey only to program_change on Channel ' + str(inputChannel) + ')')
     
     while True:
         msg = inport.receive() # Read MIDI message received from Cymatic
@@ -44,15 +44,15 @@ try:
             outport.send(msg) # Forward message to Live Prompter
             time.sleep(0.001) # LivePrompter needs time to load the song
             outport.send(play) # Send Play message to Live Prompter
-            print('\x1b[1;32;40m', msg, '\x1b[0m' + '\x1b[1;35;40m' + ' + Play cmd '+ '\x1b[0m' , '\t@', local_time)
+            print(msg, ' + Play cmd \t@', local_time)
         else:
-            print('\x1b[1;33;40m', msg, '\x1b[0m' + '\t\t\t@', local_time) # Other messages (not program_change)
+            print(msg, '\t\t\t@', local_time) # Other messages (not program_change)
 
 except:
-    print('\x1b[6;30;41m' + 'ERROR: Unable to open MIDI port(s)!' + '\x1b[0m')
-    print('\x1b[6;30;43m' + 'MIDI ports available:' + '\x1b[0m')
+    print('ERROR: Unable to open MIDI port(s)!')
+    print('MIDI ports available:')
     print('INPUT:\t', mido.get_input_names())
     print('OUTPUT:\t', mido.get_output_names())
-    print('\x1b[3;36;40m' + 'Note: take the physical MIDI port as Input.' + '\x1b[0m')
+    print('Note: take the physical MIDI port as Input.')
     print()
-    input('Close this window or ' + '\x1b[6;30;47m' + 'press Enter to Exit' + '\x1b[0m' + '.')
+    input('Close this window or press Enter to Exit.')
