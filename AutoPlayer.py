@@ -30,10 +30,11 @@ try:
     sysex = mido.Message('sysex', data=[125, 77, 65, 1, 70, 71] + [ord(x) for x in list(alertMsg)] + [33]) # Compose MIDI alert
     outport.send(sysex) # Send MIDI alert
 
-    play = mido.Message('control_change', control=7, value=10) # Compose MIDI Play command
-
     print('Remember: here numbers goes from 0 to 15 instead of 1 to 16.')
+
+    play = mido.Message('control_change', control=7, value=10) # Compose MIDI Play command
     print('The Play command is:', play)
+    
     print()
     print('>>> Waiting MIDI message from Cymatic... (Obey only to program_change on Channel ' + str(inputChannel) + ')')
     
