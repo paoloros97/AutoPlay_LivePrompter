@@ -50,7 +50,9 @@ try:
             print(msg, '\t\t@', local_time) # Other messages (not program_change)
 
 except:
-    print('ERROR: Unable to open MIDI port(s)!')
+    print('ERROR')
+    print('Unable to open MIDI port(s)!')
+    print()
     print('MIDI ports available:')
     print('INPUT:\t', mido.get_input_names())
     print('OUTPUT:\t', mido.get_output_names())
