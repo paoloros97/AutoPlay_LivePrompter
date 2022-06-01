@@ -9,10 +9,6 @@
 # For build the .exe run: 
 # pyinstaller --clean --onefile --icon ananas.ico .\AutoPlayer.py
 
-#Colors: https://stackoverflow.com/questions/287871/how-do-i-print-colored-text-to-the-terminal
-
-#Version 3
-
 import mido # MIDI library
 import mido.backends.rtmidi # Necessary for build the .exe
 import time
@@ -26,7 +22,7 @@ try:
     inport = mido.open_input(inputMIDIport, autoreset=True) # Open input MIDI port
     print('Connected to physical MIDI in-port:', inport.name, 'and virtual MIDI out-port:', outport.name + '.')
 
-    alertMsg = "Connesso a MIDI-USB (Porta 1) via AutoPlayer" # Alert to send
+    alertMsg = "Connesso a MIDI-USB (Porta 1) via AutoPlayer" # Alert text
     sysex = mido.Message('sysex', data=[125, 77, 65, 1, 70, 71] + [ord(x) for x in list(alertMsg)] + [33]) # Compose MIDI alert
     outport.send(sysex) # Send MIDI alert
 
@@ -40,8 +36,8 @@ try:
     
     while True:
         msg = inport.receive() # Read MIDI message received from Cymatic
-        local_time = time.ctime(time.time()) # Convert time to standard format
-        if msg.type == 'program_change' and msg.channel == inputChannel: # Accept only program_change
+        local_time = time.ctime(time.time()) # Timestamp
+        if msg.type == 'program_change' and msg.channel == inputChannel: # Accept only program_change on channel 0
             outport.send(msg) # Forward message to Live Prompter
             time.sleep(0.001) # LivePrompter needs time to load the song
             outport.send(play) # Send Play message to Live Prompter
@@ -56,6 +52,5 @@ except:
     print('MIDI ports available:')
     print('INPUT:\t', mido.get_input_names())
     print('OUTPUT:\t', mido.get_output_names())
-    print('Note: take the physical MIDI port as Input.')
     print()
     input('Close this window or press Enter to Exit.')
