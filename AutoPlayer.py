@@ -2,9 +2,9 @@
 # @Date: 24/05/2021 (DD/MM/YYY)
 #
 # @Description:
-# This code receive any kind of message received from an external MIDI device (like a Cymatic)
-# Forward the received MIDI message to a loopMIDI channel with an addition MIDI command that trigger
-# the play button on "LivePrompter".
+# This code receives any kind of message from an external MIDI device (like a Cymatic)
+# then forward the received MIDI message to a loopMIDI channel followed by an additional
+# MIDI command that trigger the play button on "LivePrompter".
 #
 # To build the .exe run: 
 # pyinstaller --clean --onefile --icon ananas.ico .\AutoPlayer.py
