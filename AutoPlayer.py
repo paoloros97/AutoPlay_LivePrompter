@@ -6,7 +6,7 @@
 # Forward the received MIDI message to a loopMIDI channel with an addition MIDI command that trigger
 # the play button on "LivePrompter".
 #
-# For build the .exe run: 
+# To build the .exe run: 
 # pyinstaller --clean --onefile --icon ananas.ico .\AutoPlayer.py
 
 import mido # MIDI library
@@ -28,7 +28,7 @@ try:
 
     print('Remember: here numbers goes from 0 to 15 instead of 1 to 16.')
 
-    play = mido.Message('control_change', control=7, value=10) # Compose MIDI Play command
+    play = mido.Message('control_change', control=7, value=10) # Compose MIDI Play command for LP
     print('The Play command is:', play)
     
     print()
