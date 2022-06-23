@@ -22,7 +22,7 @@ try:
     inport = mido.open_input(inputMIDIport, autoreset=True) # Open input MIDI port
     print('Connected to physical MIDI in-port:', inport.name, 'and virtual MIDI out-port:', outport.name + '.')
 
-    alertMsg = "Connesso a MIDI-USB (Porta 1) via AutoPlayer" # Alert text
+    alertMsg = "Connesso a MIDI-USB via AutoPlayer" # Alert text
     sysex = mido.Message('sysex', data=[125, 77, 65, 1, 70, 71] + [ord(x) for x in list(alertMsg)] + [33]) # Compose MIDI alert
     outport.send(sysex) # Send MIDI alert
 
