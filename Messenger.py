@@ -2,7 +2,7 @@ import PySimpleGUI as sg
 import mido
 import mido.backends.rtmidi # Necessary for build the .exe
 
-# pyinstaller --clean --onefile .\Messenger.py
+# pyinstaller --clean --noconsole --onefile .\Messenger.py
 
 # Get the list of midi outports
 PortList = mido.get_output_names() 
