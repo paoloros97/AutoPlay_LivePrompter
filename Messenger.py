@@ -22,7 +22,7 @@ sysexHide = mido.Message('sysex', data = messageHide) #Compose MIDI message
 while True:
     print("Insert message:", end=" ")
     messageIn = input()
-    messageInData = [125, 77, 65, 1, type[0], color[7]] + [ord(x) for x in list(messageIn)] + [33]
+    messageInData = [125, 77, 65, 1, type[3], color[4]] + [ord(x) for x in list(messageIn)] + [33]
     sysexIn = mido.Message('sysex', data = messageInData) #Compose MIDI message
     outport.send(sysexIn)
 
