@@ -10,12 +10,14 @@ import PySimpleGUI as sg
 outMIDIport = 'MIDImsg 3' # Write the midi output port name here
 
 # Define the window's contents
-layout = [[sg.Button('Check connection'), sg.Text(size=(40,1), key='-PORT-')],
+layout = [[sg.Button('Print MIDI outputs')],
+          [sg.Text(size=(40,1), key='-OUTS-')],
+          [sg.Button('Connect'),sg.Button('Disconnect'), sg.Text(size=(40,1), key='-PORT-')],
           [sg.Text("Message: ")],
           [sg.Input(key='-INPUT-'), sg.Button('Flash'), sg.Button('Show'), sg.Button('Hide'),],
           [sg.Button('Quit')]]
 
-outport = mido.open_output(outMIDIport) #Open MIDI outport
+
 
 type = [83, 72, 84, 70] # 0 Show, 1 Hide, 2 Toggle, 3 Flash
 color = [66, 71, 82, 89, 79, 80, 69, 87, 75] #0 Blue, 1 Green, 2 Red, 3 Yellow, 4 Orange, 5 Purple, 6 Grey, 7 White, 8 Black 
@@ -39,11 +41,23 @@ while True:
     # See if user wants to quit or window was closed
     if event == sg.WINDOW_CLOSED or event == 'Quit':
         break
+    elif event == 'Print MIDI outputs':
+        print("Premuto print")
+        window['-OUTS-'].update(mido.get_output_names())
+        
+    elif event == 'Connect':
+        outport = mido.open_output(outMIDIport) #Open MIDI outport
+        window['-PORT-'].update('Connected to \'' + str(outMIDIport) + '\' output MIDI port.')
+        print("Connected to", outMIDIport)
+    elif event == 'Disconnect':
+        outport.close() #Open MIDI outport
+        window['-PORT-'].update('Disconnected')
+        print("Disconnected from", outMIDIport)
     elif event == 'Flash':
         print("Premuto Flash")
 
     # Output a message to the window
-    window['-PORT-'].update('Connected to Output Port: ' + str(outMIDIport))
+    #window['-PORT-'].update('Connected to Output Port: ' + str(outMIDIport))
 
 # Finish up by removing from the screen
 window.close()
