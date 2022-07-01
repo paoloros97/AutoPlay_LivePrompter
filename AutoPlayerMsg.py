@@ -15,9 +15,9 @@ import time
 
 outputMIDIport='loopMIDI 1' #To LivePrompter
 inputMIDIport='emulatore 1' #From Cymatic
-inputChannel = 0
+inputChannel = 0 #Channels goes from 0 to 15 instead of 1 to 16. For channel 1 insert 0.
 
-inputMsgMIDIport='MIDImsg 2' #From MidiMessenger
+inputMsgMIDIport='MIDImsg 2' #From Messenger
 
 try:
     outport = mido.open_output(outputMIDIport, autoreset=True) # Open output MIDI port
