@@ -7,15 +7,19 @@
 # MIDI command that trigger the play button on "LivePrompter".
 #
 # To build the .exe run: 
-# pyinstaller --clean --onefile --icon ananas.ico .\AutoPlayer.py
+# pyinstaller --clean --onefile --icon monkey.ico .\AutoPlayer.py
 
 import mido # MIDI library
 import mido.backends.rtmidi # Necessary for build the .exe
 import time
+import configparser
 
-outputMIDIport='loopMIDI 1' #To LivePrompter
-inputMIDIport='emulatore 1' #From Cymatic
-inputChannel = 0
+config = configparser.ConfigParser()
+config.read('autoplayer.ini')
+
+outputMIDIport = config['DEFAULT']['midi_out'] #To LivePrompter
+inputMIDIport = config['DEFAULT']['midi_in'] #From Cymatic
+inputChannel = int(config['DEFAULT']['ch_in']) #Listening MIDI channel
 
 try:
     outport = mido.open_output(outputMIDIport, autoreset=True) # Open output MIDI port
