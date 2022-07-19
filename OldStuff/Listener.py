@@ -4,7 +4,7 @@ import os
 import time
 import sys
 
-inputMIDIport='emulatore 1' #From Cymatic
+inputMIDIport='DJ Control Air 0' #From Cymatic
 
 try:
     inport = mido.open_input(inputMIDIport, autoreset=True) #Open input MIDI port
