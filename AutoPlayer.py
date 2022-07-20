@@ -47,7 +47,7 @@ while ('inport' in locals()) == False: # Check if input port is open
         print('- MIDI input:\t', inport.name, '(Channel ' + str(inputChannel) + ')')
         print('- MIDI output:\t', outport.name, '(Channel ' + str(inputChannel) + ')')
 
-        alertMsg = "Connesso a MIDI-USB via AutoPlayer" # Alert text for Live Prompter
+        alertMsg = "Connesso al MIDI-USB via AutoPlayer " # Alert text for Live Prompter
         sysex = mido.Message('sysex', data=[125, 77, 65, 1, 70, 71] + [ord(x) for x in list(alertMsg)] + [33]) # Compose MIDI alert
         outport.send(sysex) # Send MIDI alert
 
@@ -73,4 +73,7 @@ while ('inport' in locals()) == False: # Check if input port is open
     except:
         print("FAILED. New attempt in 10 seconds >>>")
         print('INPUT(s) available:\t', mido.get_input_names())
+        alertMsg = "Collegare il MIDI-USB " # Alert text for Live Prompter
+        sysex = mido.Message('sysex', data=[125, 77, 65, 2, 70, 66] + [ord(x) for x in list(alertMsg)] + [33]) # Compose MIDI alert
+        outport.send(sysex) # Send MIDI alert
         time.sleep(10)
