@@ -37,7 +37,7 @@ except:
     sys.exit(1)
 
 
-while ('inport' in locals()) == False: # Check if input port is open
+while True:
     try:
         print('IN > Opening attempt for input: ' + str(inputMIDIport) + '...', end = ' ')
         inport = mido.open_input(inputMIDIport, autoreset=True) # Open input MIDI port
