@@ -22,6 +22,8 @@ outputMIDIport = config['DEFAULT']['midi_out'] #To LivePrompter
 inputMIDIport = config['DEFAULT']['midi_in'] #From Cymatic
 inputChannel = int(config['DEFAULT']['ch_in']) #Listening MIDI channel
 
+print("AutoPlayer for LivePrompter by PaoloRos. v2")
+
 try:
     print('OUT > Opening output midi port: ' + str(outputMIDIport) + '...', end = ' ')
     outport = mido.open_output(outputMIDIport, autoreset=True) # Open output MIDI port
@@ -36,7 +38,6 @@ except:
 
 
 while ('inport' in locals()) == False: # Check if input port is open
-    time.sleep(5)
     try:
         print('IN > Opening attempt for input: ' + str(inputMIDIport) + '...', end = ' ')
         inport = mido.open_input(inputMIDIport, autoreset=True) # Open input MIDI port
@@ -56,7 +57,7 @@ while ('inport' in locals()) == False: # Check if input port is open
         print('- Play trigger MIDI command: \tcontrol_change (Channel ' + str(inputChannel) + ')')
 
         print()
-        print('>>> Waiting for MIDI message from Cymatic...')
+        print('>>> Waiting for MIDI message...')
 
         while True:
             msg = inport.receive() # Read MIDI message received from Cymatic
@@ -70,5 +71,6 @@ while ('inport' in locals()) == False: # Check if input port is open
                 print(msg, '\t\t@', local_time) # Other messages (not program_change)
 
     except:
-        print("FAILED.")
+        print("FAILED. New attempt in 10 seconds >>>")
         print('INPUT(s) available:\t', mido.get_input_names())
+        time.sleep(10)
