@@ -1,5 +1,5 @@
 # @Author: Paolo Rosettani
-# @Date: 24/05/2021 (DD/MM/YYY)
+# @Date: 20/07/2022 (DD/MM/YYY) (v2)
 #
 # @Description:
 # This code receives any kind of message from an external MIDI device (like a Cymatic)
@@ -12,7 +12,7 @@
 import mido # MIDI library
 import mido.backends.rtmidi # Necessary for build the .exe
 import time
-import configparser
+import configparser # for .ini file
 import sys
 
 config = configparser.ConfigParser()
@@ -30,14 +30,14 @@ try:
     print('OK - Output is connected!')
 except:
     print("FAILED.")
-    print('OUTPUT(s) available:\t', mido.get_output_names())
+    print('OUTPUT(s) available:\t', mido.get_output_names()) # Print output ports
     print()
     print('SOLUTION: Run the loopMIDI software with a loop channel named: loopMIDI')
     input('Close this window or press Enter to exit.')
-    sys.exit(1)
+    sys.exit(1) # Exit program
 
 
-while True:
+while True: # Repeat until Inport MIDI port is open
     try:
         print('IN > Opening attempt for input: ' + str(inputMIDIport) + '...', end = ' ')
         inport = mido.open_input(inputMIDIport, autoreset=True) # Open input MIDI port
@@ -60,7 +60,7 @@ while True:
         print('>>> Waiting for MIDI message...')
 
         while True:
-            msg = inport.receive() # Read MIDI message received from Cymatic
+            msg = inport.receive() # Wait for input MIDI message
             local_time = time.ctime(time.time()) # Timestamp
             if msg.type == 'program_change' and msg.channel == inputChannel: # Accept only program_change on channel 0
                 outport.send(msg) # Forward message to Live Prompter
@@ -68,12 +68,12 @@ while True:
                 outport.send(play) # Send Play message to Live Prompter
                 print(msg, ' + Play cmd \t@', local_time)
             else:
-                print(msg, '\t\t@', local_time) # Other messages (not program_change)
+                print(msg, '\t\t@', local_time) # Just print other messages (not program_change)
 
     except:
         print("FAILED. New attempt in 10 seconds >>>")
         print('INPUT(s) available:\t', mido.get_input_names())
         alertMsg = "Collegare il MIDI-USB " # Alert text for Live Prompter
-        sysex = mido.Message('sysex', data=[125, 77, 65, 2, 70, 66] + [ord(x) for x in list(alertMsg)] + [33]) # Compose MIDI alert
+        sysex = mido.Message('sysex', data=[125, 77, 65, 2, 70, 66] + [ord(x) for x in list(alertMsg)] + [33]) # Compose MIDI alert blue
         outport.send(sysex) # Send MIDI alert
         time.sleep(10)
