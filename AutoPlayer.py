@@ -18,6 +18,7 @@ import sys
 config = configparser.ConfigParser()
 config.read('autoplayer.ini')
 
+port = mido.open_input('New Port', virtual=True)
 outputMIDIport = config['DEFAULT']['midi_out'] #To LivePrompter
 inputMIDIport = config['DEFAULT']['midi_in'] #From Cymatic
 inputChannel = int(config['DEFAULT']['ch_in']) #Listening MIDI channel
