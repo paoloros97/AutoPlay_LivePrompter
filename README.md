@@ -1,39 +1,19 @@
 # AutoPlay for LivePrompter
 
 
-<!-- GETTING STARTED -->
 ## Installation
-
-### Install Python
-
-* <a href="https://www.python.org/downloads/">Download</a> and install Python.
-
-### Install Visual Studio Build Tools
-
-* <a href="https://visualstudio.microsoft.com/downloads/?q=build+tools">Download</a> and install Visual Studio.
-Install then the Visual Studio Build Tools.
-(This is necessary to install python-rtmidi)
-
- <p align="center"><img src="images/VisualStudio.PNG" alt="avvia" width="550"></p>
 
 ### Install loopMIDI
 
 * <a href="https://www.tobias-erichsen.de/software/loopmidi.html">Download</a> and install loopMIDI.
-This creates an internal loop of MIDI commands.
+This creates an internal loop of MIDI channels.
 
 <p align="center"><img src="images/LoopMIDI.PNG" alt="avvia" width="550"></p>
 
+### Install LivePrompter
 
-### Install libreries
+* <a href="https://www.liveprompter.com/download/">Download</a> and install LivePrompter.
 
-Copy and paste the following commands into the Command Prompt:
-
-```
-pip install mido
-```
-```
-pip install python-rtmidi
-```
 ### Update the LivePrompter.ini
 
 ```
@@ -45,12 +25,53 @@ MidiInChannel=omni
 MidiInKeyPausePlay=CC 7
 ```
 
-## Lunch App
-Double click on the Python file "AutoPlayer.py"
-<p align="center"><img src="images/AutoPlayScreenShot.PNG" alt="avvia" width="550"></p>
+## Usage
+### Create a loopMIDI port
+Open the loopMIDI app. Create a loop MIDI channel named "loopMIDI" by clicking the + button.
 
-When it receive a MIDI command, the message will be forwarded, and added a play command.
-(Look into the code to change the MIDI name ports)
+### Connect your MIDI hardware port.
+To check the hardware MIDI input name, run the "AutoPlayer.exe" with double click (it's inside the "dist" folder in this repository).
+In the AutoPlayer's terminal window you should see the following:
+```
+AutoPlayer for LivePrompter by PaoloRos. v2
+OUT > Opening output midi port: loopMIDI 1... OK - Output is connected!
+IN > Opening attempt for input: emulatore 1... FAILED. New attempt in 10 seconds >>>
+INPUT(s) available:      ['loopMIDI 0', 'HW_MIDI_port1 1', 'HW_MIDI_port2 2']
+```
+Copy the hardware MIDI input name port (displayed in the list after "INPUT(s) available") with the space and the ending number included, i.e. the whole chars between the apostrophes.
+Paste the just copied name inside the "autoplayer.ini" file (always located in the "dist" folder of this repository) after "midi_in = ".
 
-<p align="center"><img src="images/AutoPlayScreenShot_withsignal.PNG" alt="avvia" width="550"></p>
+### Open the LivePrompter software.
+Open the Live pormpter software. Normally the song list is empty, you need to add some lyrics by yourself.
+
+### Run the AutoPlayer
+Run the "AutoPlayer.exe" with double click.
+To check if you did it right, on the AutoPlayer's terminal windows it should appear:
+
+```
+AutoPlayer for LivePrompter by PaoloRos. v2
+OUT > Opening output midi port: loopMIDI 1... OK - Output is connected!
+IN > Opening attempt for input: emulatore 1... OK - Input is connected!
+
+- MIDI input:    emulatore 1 (Channel 0)
+- MIDI output:   loopMIDI 1 (Channel 0)
+- Lyrics change MIDI command:   program_change (Channel 0)
+- Play trigger MIDI command:    control_change (Channel 0)
+
+>>> Waiting for MIDI message...
+```
+
+## How it works
+
+There is a main device that sends midi commands (in my case it's a Cymatic Audio LP 16 - with MIDI output).
+When the phisical play button on the Cymatic is triggered, it sends a program_change (each song with it's specific number, from 0 to 127).
+
+The Cymatic's MIDI output is wired with the MIDI-usb input connected to the Widnows PC target.
+
+Then, this MIDI message is received by the AutoPlayer software that forwards the program_change message to the LivePrompter (via the loopMIDI port) and append also the Play/Start MIDI message (control_change CC 7) to LivePrompter that starts the lyric scrolling.
+
+With this add-on, LivePrompter loads and starts the lyrics automatically, instead of just loading it (without start the scrolling).
+
+## Working chain
+Cymatic >> MIDI cable >> MIDI-usb >> AutoPlayer >> loopMIDI >> LivePrompter.
 
