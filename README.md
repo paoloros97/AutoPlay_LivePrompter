@@ -66,7 +66,7 @@ IN > Opening attempt for input: emulatore 1... OK - Input is connected!
 There is a main device that sends midi commands (in my case it's a Cymatic Audio LP 16 - with MIDI output).
 When the phisical play button on the Cymatic is triggered, it sends a program_change (each song with it's specific number, from 0 to 127).
 
-The Cymatic's MIDI output is wired with the MIDI-usb input connected to the Widnows PC target.
+The Cymatic's MIDI output is wired with the MIDI-usb input connected to the Windows PC target.
 
 Then, this MIDI message is received by the AutoPlayer software that forwards the program_change message to the LivePrompter (via the loopMIDI port) and append also the Play/Start MIDI message (control_change CC 7) to LivePrompter that starts the lyric scrolling.
 
