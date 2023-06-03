@@ -64,7 +64,7 @@ IN > Opening attempt for input: emulatore 1... OK - Input is connected!
 ## How it works
 
 There is a main device that sends midi commands (in my case it's a Cymatic Audio LP 16 - with MIDI output).
-When the phisical play button on the Cymatic is triggered, it sends a program_change (each song with it's specific number, from 0 to 127).
+When the phisical play button on the Cymatic is triggered, it sends a program_change (each song with its specific number, from 0 to 127).
 
 The Cymatic's MIDI output is wired with the MIDI-usb input connected to the Windows PC target.
 
