@@ -68,7 +68,7 @@ When the Cymatic's physical Play button is triggered, it sends a MIDI program_ch
 
 The Cymatic's MIDI output is wired with the MIDI-usb device's input, connected to the Windows PC target.
 
-This MIDI program_change message is received by the AutoPlayer software (the one you find in this repsitory) that forwards the program_change message to the LivePrompter (via the loopMIDI port) and append also the Play/Start MIDI message (in this case a control_change, CC 7) to LivePrompter that starts the lyric scrolling.
+This MIDI program_change message is received by the AutoPlayer software (the one you find in this repository) that forwards the program_change message to the LivePrompter (via the loopMIDI port) and append also the Play/Start MIDI message (in this case a control_change, CC 7) to LivePrompter that starts the lyric scrolling.
 
 With this "add-on", LivePrompter loads and starts the lyrics automatically, instead of just loading it (i.e. without starting the scrolling by itself).
 
