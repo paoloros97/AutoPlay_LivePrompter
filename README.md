@@ -64,14 +64,17 @@ IN > Opening attempt for input: emulatore 1... OK - Input is connected!
 ## How it works
 
 There is a main device that sends midi commands (in my case it's a Cymatic Audio LP 16 - with MIDI output).
-When the phisical play button on the Cymatic is triggered, it sends a program_change (each song with its specific number, from 0 to 127).
+When the Cymatic's physical Play button is triggered, it sends a MIDI program_change (each song is mapped with its specific number, from 0 to 127).
 
-The Cymatic's MIDI output is wired with the MIDI-usb input connected to the Windows PC target.
+The Cymatic's MIDI output is wired with the MIDI-usb device's input, connected to the Windows PC target.
 
-Then, this MIDI message is received by the AutoPlayer software that forwards the program_change message to the LivePrompter (via the loopMIDI port) and append also the Play/Start MIDI message (control_change CC 7) to LivePrompter that starts the lyric scrolling.
+This MIDI program_change message is received by the AutoPlayer software (the oe you find in this repsitory) that forwards the program_change message to the LivePrompter (via the loopMIDI port) and append also the Play/Start MIDI message (in this case a control_change, CC 7) to LivePrompter that starts the lyric scrolling.
 
-With this add-on, LivePrompter loads and starts the lyrics automatically, instead of just loading it (without start the scrolling).
+With this "add-on", LivePrompter loads and starts the lyrics automatically, instead of just loading it (i.e. without starting the scrolling by itself).
 
 ## Working chain
-Cymatic >> MIDI cable >> MIDI-usb >> AutoPlayer >> loopMIDI >> LivePrompter.
+Cymatic >> MIDI cable >> MIDI-usb device >> AutoPlayer >> loopMIDI >> LivePrompter.
+
+- AutoPlayer is the software I made and it's available for free in this repository.
+- loopMIDI is a third-party software.
 
